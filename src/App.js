@@ -1,12 +1,19 @@
 import React from 'react';
-
+import { ThemeProvider } from '@material-ui/styles';
+import { Provider as ReduxProvider } from 'react-redux';
+import store from './utilities/store/store';
+import { theme } from './utilities/theme/theme';
 import AppContainer from './views/AppContainer';
 
-function App() {
+const App = () => {
   return (
-    <AppContainer/>
+    <ReduxProvider store={store}>
+      <ThemeProvider theme={theme}>
+        <AppContainer />
+      </ThemeProvider>
+    </ReduxProvider >
   );
-}
+};
 
 export default App;
 

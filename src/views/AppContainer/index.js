@@ -1,11 +1,24 @@
-import React from 'react';
-
+import React, { useState } from 'react';
+import Splash from '../Splash';
+import Home from '../Home';
+import Container from '@material-ui/core/Container';
 
 const AppContainer = () => {
+
+    const [isLoading, setIsLoading] = useState(true);
+
+    if (isLoading) {
+        return <Splash endLoading={() => setIsLoading(false)} />;
+    }
     return (
-        <div>
-            <h4>Hola Mundo</h4>
-        </div>
+        <>
+            <Container maxWidth='md'>
+                <h4>Users Management App</h4>
+                {
+                    !isLoading && <Home />
+                }
+            </Container>
+        </>
     );
 };
 

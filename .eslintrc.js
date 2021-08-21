@@ -7,8 +7,8 @@ module.exports = {
         'eslint:recommended',
         'plugin:react/recommended',
         'plugin:import/recommended',
-        'plugin:import/errors',
-        'plugin:import/warnings'
+        // 'plugin:import/errors',
+        // 'plugin:import/warnings'
     ],
     'parserOptions': {
         'ecmaFeatures': {
@@ -24,13 +24,7 @@ module.exports = {
         'no-console': 'off',
         'no-unused-vars': 'warn',
         'no-debugger': 'warn',
-        'no-var': 'error',
-        // 'indent': ['error', 'tab', {
-        // 	'SwitchCase': 1,
-        // 	'ignoreComments': true,
-        // 	'ObjectExpression': 1,
-        // 	'ArrayExpression': 1
-        // }],
+        'no-var': 'error',        
         'semi': ['warn', 'always'],
         'prefer-const': ['warn', {
             'destructuring': 'all'
