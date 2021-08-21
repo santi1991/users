@@ -23,9 +23,15 @@ export const usersListSlice = createSlice({
 		setUsersList: (state, action) => {
 			state.usersList = state.usersList.concat(action.payload);
 		},
-		deleteUserFromList(state, action) {
+		updateUserList: (state, action) => {
+			const itemIdx = state.usersList.findIndex(itemIdx => itemIdx.id === action.payload.id);
+			const updatedArray = [...state.usersList];
+			updatedArray.splice(itemIdx, 1, action.payload);
+			state.usersList = updatedArray;
+		},
+		deleteUserFromList: (state, action) => {
 			// Construct a new result array immutably and return it
-			return state.filter(user => user.id !== action.payload);
+			state.usersList = state.usersList.filter(user => user.id !== action.payload);
 		}
 	},
 	extraReducers: {
@@ -54,5 +60,5 @@ export const selectUsersList = state => state.usersList.usersList;
 export const selectUsersListById = (state, userId) =>
 	state.usersList.usersList.find(user => user.id === userId);
 
-export const { setUsersList, deleteUser } = usersListSlice.actions;
+export const { setUsersList, deleteUserFromList, updateUserList } = usersListSlice.actions;
 export default usersListSlice.reducer;

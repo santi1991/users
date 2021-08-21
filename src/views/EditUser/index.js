@@ -8,10 +8,12 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Button from '@material-ui/core/Button';
 import { createUser, updateUser, deleteUser } from '../../utilities/api/gorest';
-
-
+import { useDispatch } from 'react-redux';
+import { deleteUserFromList, updateUserList } from '../Users/usersSlice';
 
 const EditUser = ({ currentUser, handleCurrentUser }) => {
+
+    const dispatch = useDispatch();
     const classes = useStyles();
 
     const initialState = {
@@ -64,7 +66,8 @@ const EditUser = ({ currentUser, handleCurrentUser }) => {
         const obj = { ...user };
         delete obj.id;
         try {
-            await updateUser(obj);            
+            await updateUser(obj);     
+            dispatch(updateUserList(user));          
             alert(`user updated ${JSON.stringify(obj)}`);
         } 
         catch (error) {
@@ -77,12 +80,15 @@ const EditUser = ({ currentUser, handleCurrentUser }) => {
         const obj = { ...user };
         // delete obj.id;
         try {
-            await deleteUser(obj);            
+            await deleteUser(user);   
+            dispatch(deleteUserFromList(obj.id));   
+
             alert(`user deleted!! ${JSON.stringify(obj)}`);
         } 
         catch (error) {
             alert('ups! something went wrong');
         } 
+        // dispatch(deleteUserFromList(user.id));  
         setUser(initialState);      
     };
 

@@ -2,10 +2,10 @@ import axios from 'axios';
 // eslint-disable-next-line no-undef
 const { REACT_APP_API_URL, REACT_APP_API_KEY } = process.env;
 
-// const axiosClient = axios.create();
+const API_SEARCH = '/users';
 
 const axiosClient = axios.create({
-	baseURL: REACT_APP_API_URL,
+	// baseURL: REACT_APP_API_URL,
 	headers: { 'Authorization': `Bearer ${REACT_APP_API_KEY}` }
 });
 
@@ -29,18 +29,19 @@ const axiosClient = axios.create({
 // axiosClient.defaults.timeout = 2500;
 
 
-const API_SEARCH = '/users';
+
 
 // https://gorest.co.in/public/v1/users?access-token=xxx
 
-// const createUrl = () => `${API_SEARCH}?${REACT_APP_API_KEY}`;
+// const createUrl = () => `${REACT_APP_API_URL}${API_SEARCH}`;
+const URL = `${REACT_APP_API_URL}${API_SEARCH}`;
 
-const createUrl = () => `${API_SEARCH}`;
+// const createUrl = () => `${API_SEARCH}`;
 
 export const getUsersList = async () => {
-	const url = createUrl();
+	// const url = createUrl();
 	try {
-		const response = await axiosClient.get(url);
+		const response = await axiosClient.get(URL);
 		// console.log(response);
 		// return response.data.data;
 		return response.data;
@@ -52,10 +53,10 @@ export const getUsersList = async () => {
 };
 
 export const createUser = async (data) => {
-	const url = createUrl();
+	// const url = createUrl();
 	try {
 		console.log(data);
-		const response = await axiosClient.post(url, data);
+		const response = await axiosClient.post(URL, data);
 		console.log(response);
 
 	}
@@ -65,10 +66,10 @@ export const createUser = async (data) => {
 };
 
 export const updateUser = async (data) => {
-	const url = createUrl();
+	// const url = createUrl();
 	try {
 		console.log(data);
-		const response = await axiosClient.patch(url, data);
+		const response = await axiosClient.patch(URL, data);
 		console.log(response);
 
 	}
@@ -78,10 +79,10 @@ export const updateUser = async (data) => {
 };
 
 export const deleteUser = async (data) => {
-	const url = createUrl();
+	// const url = createUrl();
 	try {
 		console.log(data);
-		const response = await axiosClient.delete(url, data);
+		const response = await axiosClient.delete(URL, { data: data });
 		console.log(response);
 
 	}
