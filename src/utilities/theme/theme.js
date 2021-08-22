@@ -18,7 +18,7 @@ export const theme = createTheme({
       main: colors.navyBlue,
     },
     secondary: {
-      main: colors.white,
+      main: colors.darkBlue,
     },
   },
 });

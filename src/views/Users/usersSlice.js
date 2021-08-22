@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, nanoid } from '@reduxjs/toolkit';
 import { getUsersList } from '../../utilities/api/gorest';
 
 const initialState = {
@@ -28,6 +28,15 @@ export const usersListSlice = createSlice({
 			const updatedArray = [...state.usersList];
 			updatedArray.splice(itemIdx, 1, action.payload);
 			state.usersList = updatedArray;
+		},
+		addUserToList: {
+			reducer: (state, action) => {
+				state.usersList.unshift(action.payload);
+			},
+			prepare: (newUser) => {
+				const id = nanoid();
+				return { payload: { id, ...newUser } };
+			},
 		},
 		deleteUserFromList: (state, action) => {
 			// Construct a new result array immutably and return it
@@ -60,5 +69,5 @@ export const selectUsersList = state => state.usersList.usersList;
 export const selectUsersListById = (state, userId) =>
 	state.usersList.usersList.find(user => user.id === userId);
 
-export const { setUsersList, deleteUserFromList, updateUserList } = usersListSlice.actions;
+export const { setUsersList, deleteUserFromList, updateUserList, addUserToList } = usersListSlice.actions;
 export default usersListSlice.reducer;

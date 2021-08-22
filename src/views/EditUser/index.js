@@ -9,7 +9,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import Button from '@material-ui/core/Button';
 import { createUser, updateUser, deleteUser } from '../../utilities/api/gorest';
 import { useDispatch } from 'react-redux';
-import { deleteUserFromList, updateUserList } from '../Users/usersSlice';
+import { deleteUserFromList, updateUserList, addUserToList } from '../Users/usersSlice';
 
 const EditUser = ({ currentUser, handleCurrentUser }) => {
 
@@ -53,49 +53,51 @@ const EditUser = ({ currentUser, handleCurrentUser }) => {
         const obj = { ...user };
         delete obj.id;
         try {
-            await createUser(obj);            
+            await createUser(obj);
+            dispatch(addUserToList(obj));
             alert(`new user created ${JSON.stringify(obj)}`);
-        } 
+
+        }
         catch (error) {
             alert('ups! something went wrong');
-        } 
-        setUser(initialState);      
+        }
+        setUser(initialState);
     };
 
     const callUpdateUser = async () => {
         const obj = { ...user };
         delete obj.id;
         try {
-            await updateUser(obj);     
-            dispatch(updateUserList(user));          
+            await updateUser(obj);
+            dispatch(updateUserList(user));
             alert(`user updated ${JSON.stringify(obj)}`);
-        } 
+        }
         catch (error) {
             alert('ups! something went wrong');
-        } 
-        setUser(initialState);      
+        }
+        setUser(initialState);
     };
 
     const callDeleteUser = async () => {
         const obj = { ...user };
         // delete obj.id;
         try {
-            await deleteUser(user);   
-            dispatch(deleteUserFromList(obj.id));   
+            await deleteUser(user);
+            dispatch(deleteUserFromList(user.id));
 
             alert(`user deleted!! ${JSON.stringify(obj)}`);
-        } 
+        }
         catch (error) {
             alert('ups! something went wrong');
-        } 
+        }
         // dispatch(deleteUserFromList(user.id));  
-        setUser(initialState);      
+        setUser(initialState);
     };
 
-    
+
 
     useEffect(() => {
-        if(currentUser) {
+        if (currentUser) {
             setUser(currentUser);
         }
     }, [currentUser]);
@@ -141,7 +143,7 @@ const EditUser = ({ currentUser, handleCurrentUser }) => {
                     onClick={callCreateUser}
                     variant='contained'
                     color='primary'
-                    // disabled={user.name ? true : false}
+                // disabled={user.name ? true : false}
                 >
                     CREATE
                 </Button>
@@ -150,7 +152,7 @@ const EditUser = ({ currentUser, handleCurrentUser }) => {
                     onClick={callUpdateUser}
                     variant='contained'
                     color='primary'
-                    // disabled={!currentUser ? true : false}
+                // disabled={!currentUser ? true : false}
                 >
                     UPDATE
                 </Button>
@@ -169,7 +171,7 @@ const EditUser = ({ currentUser, handleCurrentUser }) => {
                     className={classes.buttonContainer}
                     onClick={() => setUser(initialState)}
                     variant='contained'
-                    color='primary'
+                    color='secondary'
                 >
                     Clear
                 </Button>
