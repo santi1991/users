@@ -66,7 +66,7 @@ const EditUser = ({ currentUser, handleCurrentUser }) => {
 
     const callUpdateUser = async () => {
         const obj = { ...user };
-        delete obj.id;
+        // delete obj.id;
         try {
             await updateUser(obj);
             dispatch(updateUserList(user));
@@ -82,7 +82,7 @@ const EditUser = ({ currentUser, handleCurrentUser }) => {
         const obj = { ...user };
         // delete obj.id;
         try {
-            await deleteUser(user);
+            await deleteUser(user.id);
             dispatch(deleteUserFromList(user.id));
 
             alert(`user deleted!! ${JSON.stringify(obj)}`);

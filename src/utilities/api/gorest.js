@@ -69,7 +69,8 @@ export const updateUser = async (data) => {
 	// const url = createUrl();
 	try {
 		console.log(data);
-		const response = await axiosClient.patch(URL, data);
+		// const response = await axiosClient.patch(URL, data);
+		const response = await axiosClient.patch(`${URL}/${data.id}`, data);
 		console.log(response);
 
 	}
@@ -82,7 +83,8 @@ export const deleteUser = async (data) => {
 	// const url = createUrl();
 	try {
 		console.log(data);
-		const response = await axiosClient.delete(URL, { data: data });
+		// const response = await axiosClient.delete(URL, { data: data });
+		const response = await axiosClient.delete(`${URL}/${data}`);
 		console.log(response);
 
 	}
